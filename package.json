@@ -29,7 +29,7 @@
     "vue": "^2.6.6",
     "vue-codemirror": "^4.0.6",
     "vue-router": "^3.0.1",
-    "vue-simple-suggest": "^1.8.3",
+    "vue-simple-suggest": "^1.10.1",
     "vuex": "^3.0.1",
     "vuex-i18n": "^1.11.0"
   },

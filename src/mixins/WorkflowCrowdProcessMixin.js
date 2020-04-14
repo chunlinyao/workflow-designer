@@ -5,7 +5,9 @@ let WorkflowCrowdProcessMixin = {
       userId: '',
       userFullName: '',
       userGroupId: '',
-      userGroupDescription: ''
+      userGroupDescription: '',
+      serviceName: '',
+      serviceParameters: ''
     }
   },
   methods: {
@@ -14,6 +16,8 @@ let WorkflowCrowdProcessMixin = {
         return crowd.userFullName
       } else if (crowd.crowdTypeEnumId === 'WF_CROWD_USER_GROUP') {
         return crowd.userGroupDescription
+      } else if (crowd.crowdTypeEnumId === 'WF_CROWD_SERVICE') {
+        return crowd.serviceName + '(' + crowd.serviceParameters + ')'
       } else {
         return 'Initiator'
       }
@@ -25,6 +29,9 @@ let WorkflowCrowdProcessMixin = {
     selectUserGroupRecord (record) {
       this.userGroupId = record.userGroupId
       this.userGroupDescription = record.description
+    },
+    selectUserServiceRecord (record) {
+      this.serviceName = record
     }
   }
 }

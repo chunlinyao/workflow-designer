@@ -46,11 +46,21 @@
                               :description="userGroupDescription"
                               @select-record="selectUserGroupRecord"
                               v-show="crowdTypeEnumId === 'WF_CROWD_USER_GROUP'"/>
+                            <user-service-lookup v-model="serviceName"
+                              :serviceName="serviceName"
+                              @select-record="selectUserServiceRecord"
+                              v-show="crowdTypeEnumId === 'WF_CROWD_SERVICE'"/>
                             <b-form-input class="m-0" :disabled="true" v-show="crowdTypeEnumId === 'WF_CROWD_INITIATOR'"/>
                           </td>
                         </tr>
                       </table>
                     </div>
+                  </b-form-group>
+                </b-form-row>
+                <b-form-row v-if="crowdTypeEnumId==='WF_CROWD_SERVICE'">
+                  <b-form-group class="col-md-12">
+                    <label>Parameters</label>
+                    <b-form-input v-model="serviceParameters"/>
                   </b-form-group>
                 </b-form-row>
 
@@ -100,6 +110,7 @@
 <script>
 import UserLookup from '@/components/secure/user/UserLookup'
 import UserGroupLookup from '@/components/secure/user-group/UserGroupLookup'
+import UserServiceLookup from '@/components/secure/user-service/UserServiceLookup'
 import WorkflowProcessMixin from '@/mixins/WorkflowProcessMixin'
 import WorkflowCrowdProcessMixin from '@/mixins/WorkflowCrowdProcessMixin'
 import EnumService from '@/services/EnumService'
@@ -109,7 +120,8 @@ export default {
   mixins: [WorkflowProcessMixin, WorkflowCrowdProcessMixin],
   components: {
     UserLookup,
-    UserGroupLookup
+    UserGroupLookup,
+    UserServiceLookup
   },
   data: function () {
     return {
@@ -146,7 +158,9 @@ export default {
         userId: this.userId,
         userFullName: this.userFullName,
         userGroupId: this.userGroupId,
-        userGroupDescription: this.userGroupDescription
+        userGroupDescription: this.userGroupDescription,
+        serviceName: this.serviceName,
+        serviceParameters: this.serviceParameters
       })
     },
     deleteCrowd (index) {

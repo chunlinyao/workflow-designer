@@ -15,7 +15,7 @@ let AutoCompleteMixin = {
         vueSimpleSuggest: 'position-relative',
         inputWrapper: '',
         defaultInput: 'form-control',
-        suggestions: 'suggest-list list-group position-absolute',
+        suggestions: 'suggest-list list-group position-absolute z-1000',
         suggestItem: 'suggest-list-item list-group-item'
       }
     }

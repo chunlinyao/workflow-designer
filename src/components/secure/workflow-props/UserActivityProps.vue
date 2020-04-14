@@ -55,6 +55,10 @@
                               :description="userGroupDescription"
                               @select-record="selectUserGroupRecord"
                               v-show="crowdTypeEnumId === 'WF_CROWD_USER_GROUP'"/>
+                            <user-service-lookup v-model="serviceName"
+                              :serviceName="serviceName"
+                              @select-record="selectUserServiceRecord"
+                              v-show="crowdTypeEnumId === 'WF_CROWD_SERVICE'"/>
                             <b-form-input class="m-0" :disabled="true" v-show="crowdTypeEnumId === 'WF_CROWD_INITIATOR'"/>
                           </td>
                         </tr>
@@ -62,7 +66,13 @@
                     </div>
                   </b-form-group>
                 </b-form-row>
-                <b-form-row v-if="mutableUserData.taskTypeEnumId === 'WF_TASK_APPROVAL' && crowdTypeEnumId === 'WF_CROWD_USER_GROUP'">
+                <b-form-row v-if="crowdTypeEnumId==='WF_CROWD_SERVICE'">
+                  <b-form-group class="col-md-12">
+                    <label>Parameters</label>
+                    <b-form-input v-model="serviceParameters"/>
+                  </b-form-group>
+                </b-form-row>
+                <b-form-row v-if="mutableUserData.taskTypeEnumId === 'WF_TASK_APPROVAL' && (crowdTypeEnumId === 'WF_CROWD_USER_GROUP' || crowdTypeEnumId === 'WF_CROWD_SERVICE' )">
                   <b-form-group class="col-md-6">
                     <label>Minimum Approvals</label>
                     <b-form-input v-model="minApprovals" type="number"/>
@@ -151,6 +161,7 @@
 <script>
 import UserLookup from '@/components/secure/user/UserLookup'
 import UserGroupLookup from '@/components/secure/user-group/UserGroupLookup'
+import UserServiceLookup from '@/components/secure/user-service/UserServiceLookup'
 import WorkflowProcessMixin from '@/mixins/WorkflowProcessMixin'
 import WorkflowCrowdProcessMixin from '@/mixins/WorkflowCrowdProcessMixin'
 import WorkflowTimeoutProcessMixin from '@/mixins/WorkflowTimeoutProcessMixin'
@@ -167,12 +178,15 @@ export default {
       crowdFormVisible: false,
       minApprovals: 1,
       minRejections: 1,
+      serviceName: '',
+      serviceParameters: '',
       variables: []
     }
   },
   components: {
     UserLookup,
-    UserGroupLookup
+    UserGroupLookup,
+    UserServiceLookup
   },
   methods: {
     async load () {
@@ -211,6 +225,8 @@ export default {
         userFullName: this.userFullName,
         userGroupId: this.userGroupId,
         userGroupDescription: this.userGroupDescription,
+        serviceName: this.serviceName,
+        serviceParameters: this.serviceParameters,
         minApprovals: this.minApprovals,
         minRejections: this.minRejections
       })
