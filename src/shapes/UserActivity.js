@@ -42,7 +42,8 @@ let UserActivity = draw2d.shape.layout.VerticalLayout.extend({
       timeoutInterval: 0,
       timeoutUomId: 'TF_wk',
       summary: '',
-      description: ''
+      description: '',
+      fields: []
     };
 
     // activity icon

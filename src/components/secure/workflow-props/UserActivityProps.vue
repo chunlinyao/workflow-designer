@@ -140,6 +140,43 @@
         </b-form-group>
       </b-form-row>
       <b-form-row>
+        <table class="table table-bordered outlined table-vcenter mb-4">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center" style="width: 50px;">#</th>
+              <th>Field</th>
+              <th>Required</th>
+              <th>Title</th>
+              <th class="text-center">Options</th>
+            </tr>
+          </thead>
+          <tr v-for="(field, index) in mutableUserData.fields" :key="index">
+            <td class="text-center">
+              {{index + 1}}
+            </td>
+            <td>
+              <b-form-select v-model="field.fieldName" :options="fields" value-field="fieldName" text-field="displayName"/>
+            </td>
+            <td>
+              <b-form-select v-model="field.required" :options="booleanOptions" value-field="key" text-field="key"/>
+            </td>
+            <td>
+              <b-form-input v-model="field.title" type="text" />
+            </td>
+            <td class="text-center">
+              <div class="btn-group">
+                <b-button size="sm" @click="deleteField(index)" :disabled="index === 0">
+                  <i class="fa fa-times"></i>
+                </b-button>
+                <b-button size="sm" @click="addField">
+                  <i class="fa fa-plus"></i>
+                </b-button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </b-form-row>
+      <b-form-row>
         <b-form-group class="col-md-6">
           <label>Timeout</label>
           <b-form-input v-model="mutableUserData.timeoutInterval" type="number"/>
@@ -166,6 +203,7 @@ import WorkflowProcessMixin from '@/mixins/WorkflowProcessMixin'
 import WorkflowCrowdProcessMixin from '@/mixins/WorkflowCrowdProcessMixin'
 import WorkflowTimeoutProcessMixin from '@/mixins/WorkflowTimeoutProcessMixin'
 import EnumService from '@/services/EnumService'
+import EntityFieldService from '@/services/EntityFieldService'
 import WorkflowService from '@/services/WorkflowService'
 
 export default {
@@ -174,8 +212,10 @@ export default {
   data: function () {
     return {
       taskTypes: [],
+      fields: [],
       crowdTypes: [],
       crowdFormVisible: false,
+      booleanOptions: [{ key: 'Y' }, { key: 'N' }],
       minApprovals: 1,
       minRejections: 1,
       serviceName: '',
@@ -211,6 +251,16 @@ export default {
       }).then(function (response) {
         self.variables = response.data.workflowVariableList || []
       })
+      EntityFieldService.entityFields({
+        entityName: this.workflow.primaryViewEntityName,
+        orderByField: 'fieldName'
+      }).then(function (response) {
+        self.fields = response.data || []
+        self.mutableUserData.fields = self.mutableUserData.fields || []
+        if (self.mutableUserData.fields.length === 0) {
+          self.addField()
+        }
+      })
     },
     showCrowdForm () {
       this.crowdFormVisible = true
@@ -233,6 +283,20 @@ export default {
     },
     deleteCrowd (index) {
       this.mutableUserData.crowds.splice(index, 1)
+    },
+    addField () {
+      let field = this.fields[0]
+      if (field) {
+        let fieldName = field.fieldName
+        this.mutableUserData.fields.push({
+          fieldName: fieldName,
+          required: 'N',
+          title: ''
+        })
+      }
+    },
+    deleteField (index) {
+      this.mutableUserData.fields.splice(index, 1)
     }
   },
   mounted () {
