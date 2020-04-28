@@ -256,7 +256,9 @@ export default {
         orderByField: 'fieldName'
       }).then(function (response) {
         self.fields = response.data || []
-        self.mutableUserData.fields = self.mutableUserData.fields || []
+        if (!self.mutableUserData.fields) {
+          self.$set(self.mutableUserData, 'fields', [])
+        }
         if (self.mutableUserData.fields.length === 0) {
           self.addField()
         }
