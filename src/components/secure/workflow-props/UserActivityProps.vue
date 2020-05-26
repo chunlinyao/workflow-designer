@@ -147,7 +147,9 @@
               <th>Field</th>
               <th>Required</th>
               <th>Title</th>
-              <th class="text-center">Options</th>
+              <th class="text-center">Options<b-button size="sm" @click="addField">
+                  <i class="fa fa-plus"></i>
+                </b-button></th>
             </tr>
           </thead>
           <tr v-for="(field, index) in mutableUserData.fields" :key="index">
@@ -168,9 +170,7 @@
                 <b-button size="sm" @click="deleteField(index)">
                   <i class="fa fa-times"></i>
                 </b-button>
-                <b-button size="sm" @click="addField">
-                  <i class="fa fa-plus"></i>
-                </b-button>
+
               </div>
             </td>
           </tr>
