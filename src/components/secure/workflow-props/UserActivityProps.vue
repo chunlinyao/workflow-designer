@@ -17,6 +17,12 @@
       </b-form-row>
       <b-form-row>
         <b-form-group class="col-md-12">
+          <label>Task Tags</label>
+          <b-form-input v-model="mutableUserData.tags"/>
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group class="col-md-12">
           <label>Join Operator</label>
           <b-form-radio-group v-model="mutableUserData.joinOperator">
             <b-form-radio value="AND">And</b-form-radio>
@@ -261,6 +267,9 @@ export default {
         }
         if (self.mutableUserData.fields.length === 0) {
           self.addField()
+        }
+        if (!self.mutableUserData.tags) {
+          self.mutableUserData.tags = ''
         }
       })
     },
