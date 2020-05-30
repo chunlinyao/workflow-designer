@@ -153,7 +153,9 @@
               <th>Field</th>
               <th>Required</th>
               <th>Title</th>
-              <th class="text-center">Options</th>
+              <th class="text-center">Options<b-button size="sm" @click="addField">
+                  <i class="fa fa-plus"></i>
+                </b-button></th>
             </tr>
           </thead>
           <tr v-for="(field, index) in mutableUserData.fields" :key="index">
@@ -171,12 +173,10 @@
             </td>
             <td class="text-center">
               <div class="btn-group">
-                <b-button size="sm" @click="deleteField(index)" :disabled="index === 0">
+                <b-button size="sm" @click="deleteField(index)">
                   <i class="fa fa-times"></i>
                 </b-button>
-                <b-button size="sm" @click="addField">
-                  <i class="fa fa-plus"></i>
-                </b-button>
+
               </div>
             </td>
           </tr>
@@ -264,9 +264,6 @@ export default {
         self.fields = response.data || []
         if (!self.mutableUserData.fields) {
           self.$set(self.mutableUserData, 'fields', [])
-        }
-        if (self.mutableUserData.fields.length === 0) {
-          self.addField()
         }
         if (!self.mutableUserData.tags) {
           self.mutableUserData.tags = ''
