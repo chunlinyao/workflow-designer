@@ -21,6 +21,14 @@ let WorkflowTableMixin = {
       workflowTablePerPage: 10,
       workflowTablePageOptions: [10, 25, 50],
       workflowTableFields: {
+        workflowHeaderId: {
+          label: 'HEAD ID',
+          sortable: true
+        },
+        version: {
+          label: 'VER',
+          sortable: true
+        },
         workflowId: {
           label: 'ID',
           sortable: true
@@ -55,6 +63,12 @@ let WorkflowTableMixin = {
     },
     refreshWorkflowTable () {
       this.$refs.workflowTable.refresh()
+    },
+    async publishWorkflow (item) {
+      await WorkflowService.publishWorkflow({
+        workflowId: item.workflowId
+      })
+      this.refreshWorkflowTable()
     }
   }
 }

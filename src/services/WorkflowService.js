@@ -12,6 +12,9 @@ export default {
   modifyWorkflow (payload) {
     return SecureEndpoint().patch('/moqui-workflow/workflow', payload)
   },
+  publishWorkflow (payload) {
+    return SecureEndpoint().post('/moqui-workflow/workflow/' + payload.workflowId + '/publish', payload)
+  },
   designWorkflow (payload) {
     return SecureEndpoint().post('/moqui-workflow/workflow/' + payload.workflowId + '/design', payload)
   },

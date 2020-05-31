@@ -30,6 +30,15 @@
               :filter="workflowTableFilter"
               :current-page="workflowTableCurrentPage"
               :per-page="workflowTablePerPage">
+              <template slot="workflowHeaderId" slot-scope="data">
+                <b-link :to="{name: 'ViewWorkflow', params: {id: data.item.workflowId}}">{{ data.item.workflowHeaderId }}</b-link>
+              </template>
+              <template slot="version" slot-scope="data">
+                  <span>{{data.item.version}}</span>
+                  <b-button v-if="data.item.publishedVersion != data.item.version" @click="publishWorkflow(data.item)" >
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </b-button>
+              </template>
               <template slot="workflowId" slot-scope="data">
                 <b-link :to="{name: 'ViewWorkflow', params: {id: data.item.workflowId}}">{{ data.item.workflowId }}</b-link>
               </template>
