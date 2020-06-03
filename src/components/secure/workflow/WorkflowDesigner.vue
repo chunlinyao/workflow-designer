@@ -211,7 +211,7 @@ export default {
             outlineStroke: 1,
             outlineColor: '#CCD1D9',
             color: '#AAB2BD',
-            router: new draw2d.layout.connection.ManhattanConnectionRouter()
+            router: new draw2d.layout.connection.SketchConnectionRouter()
           })
           return connection
         }
