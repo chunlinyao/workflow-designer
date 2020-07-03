@@ -23,6 +23,12 @@
       </b-form-row>
       <b-form-row>
         <b-form-group class="col-md-12">
+          <label>Approve Form Name</label>
+          <b-form-input v-model="mutableUserData.formName"/>
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group class="col-md-12">
           <label>Join Operator</label>
           <b-form-radio-group v-model="mutableUserData.joinOperator">
             <b-form-radio value="AND">And</b-form-radio>
@@ -265,10 +271,13 @@ export default {
         if (!self.mutableUserData.fields) {
           self.$set(self.mutableUserData, 'fields', [])
         }
-        if (!self.mutableUserData.tags) {
-          self.mutableUserData.tags = ''
-        }
       })
+      if (!self.mutableUserData.tags) {
+        self.mutableUserData.tags = ''
+      }
+      if (!self.mutableUserData.formName) {
+        self.mutableUserData.formName = ''
+      }
     },
     showCrowdForm () {
       this.crowdFormVisible = true
