@@ -23,6 +23,18 @@
       </b-form-row>
       <b-form-row>
         <b-form-group class="col-md-12">
+          <label>Default Approve Remark</label>
+          <b-form-input v-model="mutableUserData.defaultApproveRemark"/>
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group class="col-md-12">
+          <label>Default Reject Remark</label>
+          <b-form-input v-model="mutableUserData.defaultRejectRemark"/>
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group class="col-md-12">
           <label>Approve Form Name</label>
           <b-form-input v-model="mutableUserData.formName"/>
         </b-form-group>
@@ -200,7 +212,11 @@
           </b-form-select>
         </b-form-group>
       </b-form-row>
-
+      <b-form-row>
+        <b-form-group class="col-md-12">
+          <b-form-checkbox v-model="mutableUserData.autoStart">Manual Task Autostart</b-form-checkbox>
+        </b-form-group>
+      </b-form-row>
       <b-button @click="save" class="mr-2" variant="primary">Save</b-button>
       <b-button @click="cancel" class="mr-2">Cancel</b-button>
     </b-form>
@@ -277,6 +293,15 @@ export default {
       }
       if (!self.mutableUserData.formName) {
         self.mutableUserData.formName = ''
+      }
+      if (!self.mutableUserData.autoStart) {
+        self.mutableUserData.autoStart = false
+      }
+      if (!self.mutableUserData.defaultApproveRemark) {
+        self.mutableUserData.defaultApproveRemark = ''
+      }
+      if (!self.mutableUserData.defaultRejectRemark) {
+        self.mutableUserData.defaultRejectRemark = ''
       }
     },
     showCrowdForm () {
