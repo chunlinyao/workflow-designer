@@ -38,6 +38,9 @@
                   <b-button v-if="data.item.publishedVersion != data.item.version" @click="publishWorkflow(data.item)" >
                     <i class="fas fa-cloud-upload-alt"></i>
                   </b-button>
+                  <b-button @click="copyModelData(data.item)" >
+                    <i class="fas fa-copy"></i>
+                  </b-button>
               </template>
               <template slot="workflowId" slot-scope="data">
                 <b-link :to="{name: 'ViewWorkflow', params: {id: data.item.workflowId}}">{{ data.item.workflowId }}</b-link>
